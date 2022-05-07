@@ -1,0 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+.box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1vh;
+  margin-top: 12vh;
+  justify-content: center;
+  box-shadow: 5px 10px #dc2727;
+}
+.img {
+  width: 20%;
+  height: 20%;
+}
