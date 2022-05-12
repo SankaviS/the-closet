@@ -23,6 +23,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const Men = () => {
   const [age, setAge] = React.useState("");
+  const [data, setData] = useState([]);
+
   const handleChange = (event) => {
     setAge(event.target.value);
   };
@@ -39,9 +41,14 @@ const Men = () => {
     }),
   }));
 
-  const [expanded, setExpanded] = React.useState(false);
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  const handleExpandClick = (id) => {
+    console.log("id", id);
+    let actualData = [...data];
+    let updatedData = actualData.map((data) =>
+      data.id === id ? { ...data, isExpanded: !data.isExpanded } : data
+    );
+    console.log(updatedData);
+    setData(updatedData);
   };
 
   const theme = createTheme({
@@ -50,7 +57,6 @@ const Men = () => {
     },
   });
 
-  const [data, setData] = useState([]);
   useEffect(() => {
     men1();
   }, []);
@@ -59,7 +65,9 @@ const Men = () => {
     const result = await fetch(
       "https://6262556c327d3896e28506cd.mockapi.io/closet"
     );
-    const res = await result.json();
+    let res = await result.json();
+    res = res.map((data) => ({ ...data, isExpanded: false }));
+    console.log("res", res);
     setData(res);
   };
 
@@ -90,15 +98,15 @@ const Men = () => {
                   <ShareIcon />
                 </IconButton>
                 <ExpandMore
-                  expand={expanded}
-                  onClick={handleExpandClick}
-                  aria-expanded={expanded}
+                  expand={data.isExpanded}
+                  onClick={() => handleExpandClick(data.id)}
+                  aria-expanded={data.isExpanded}
                   aria-label="show more"
                 >
                   <ExpandMoreIcon />
                 </ExpandMore>
               </CardActions>
-              <Collapse in={expanded} timeout="auto" unmountOnExit>
+              <Collapse in={data.isExpanded} timeout="auto" unmountOnExit>
                 <CardContent>
                   <Typography paragraph>
                     <b>Price: Rs.</b> {data.price}

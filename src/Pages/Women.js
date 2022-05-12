@@ -38,9 +38,12 @@ const Women = () => {
     }),
   }));
 
-  const [expanded, setExpanded] = React.useState(false);
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  const handleExpandClick = (id) => {
+    let actualData = [...data];
+    let updatedData = actualData.map((data) =>
+      data.id === id ? { ...data, isExpanded: !data.isExpanded } : data
+    );
+    setData(updatedData);
   };
 
   const theme = createTheme({
@@ -52,13 +55,16 @@ const Women = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     men1();
-  });
+  }, []);
 
   const men1 = async () => {
     const result = await fetch(
       "https://6262556c327d3896e28506cd.mockapi.io/closetwomen"
     );
-    const res = await result.json();
+
+    let res = await result.json();
+    res = res.map((data) => ({ ...data, isExpanded: false }));
+    console.log("res", res);
     setData(res);
   };
 
@@ -88,15 +94,15 @@ const Women = () => {
                   <ShareIcon />
                 </IconButton>
                 <ExpandMore
-                  expand={expanded}
-                  onClick={handleExpandClick}
-                  aria-expanded={expanded}
+                  expand={data.isExpanded}
+                  onClick={() => handleExpandClick(data.id)}
+                  aria-expanded={data.isExpanded}
                   aria-label="show more"
                 >
                   <ExpandMoreIcon />
                 </ExpandMore>
               </CardActions>
-              <Collapse in={expanded} timeout="auto" unmountOnExit>
+              <Collapse in={data.isExpanded} timeout="auto" unmountOnExit>
                 <CardContent>
                   <Typography paragraph>
                     <b>Price:</b> Rs. {data.price}
