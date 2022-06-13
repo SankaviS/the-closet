@@ -4,7 +4,9 @@ import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
 import ContactSupportSharpIcon from "@mui/icons-material/ContactSupportSharp";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 const NavBar = () => {
+  const state = useSelector((state) => state.Handlecart);
   return (
     <nav class="navbar navbar-expand-lg navbar-light navbar-custom ">
       <div class="container-fluid">
@@ -24,11 +26,6 @@ const NavBar = () => {
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <Link class="nav-link active" aria-current="page" to="/home">
-                Home
-              </Link>
-            </li>
             <li class="nav-item">
               <Link class="nav-link active" to="/men">
                 men
@@ -67,9 +64,9 @@ const NavBar = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link active" to="/home">
+                <Link className="nav-link active" to="/cart">
                   <ShoppingCartRoundedIcon />
-                  <span> 0</span>
+                  <span> {state.length}</span>
                 </Link>
               </li>
             </ul>

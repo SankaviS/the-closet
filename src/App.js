@@ -11,6 +11,9 @@ import Wishlist from "./Pages/Wishlist";
 import Navbar from "./styles/NavBar";
 import Contact from "././Pages/contact";
 import Login from "./Pages/login";
+import Footer from "./styles/Footer";
+import Cart from "./Pages/cart";
+import Checkout from "./Pages/Checkout";
 
 function App() {
   return (
@@ -52,7 +55,16 @@ function App() {
         <Route path="/login">
           <Login />
         </Route>
+        <Route path="/cart">
+          <Cart />
+        </Route>
+        <Route path="/checkout">
+          <Checkout />
+        </Route>
       </main>
+      <footer>
+        <Footer />
+      </footer>
     </div>
   );
 }

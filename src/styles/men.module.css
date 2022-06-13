@@ -11,3 +11,9 @@
   width: 20%;
   height: 20%;
 }
+.box1:hover {
+  background-color: rgb(228, 209, 187);
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  max-width: 100%;
+}

@@ -9,7 +9,6 @@ import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -20,8 +19,16 @@ import classes from "./../styles/men.module.css";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import Stack from "@mui/material/Stack";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useDispatch } from "react-redux";
+import { Addcart } from "../redux/actions";
 
 const Men = () => {
+  const dispatch = useDispatch();
+
+  const addProduct = (product) => {
+    dispatch(Addcart(product));
+  };
+
   const [age, setAge] = React.useState("");
   const [data, setData] = useState([]);
 
@@ -42,12 +49,12 @@ const Men = () => {
   }));
 
   const handleExpandClick = (id) => {
-    console.log("id", id);
+    console.log(id);
     let actualData = [...data];
     let updatedData = actualData.map((data) =>
       data.id === id ? { ...data, isExpanded: !data.isExpanded } : data
     );
-    console.log(updatedData);
+
     setData(updatedData);
   };
 
@@ -67,7 +74,7 @@ const Men = () => {
     );
     let res = await result.json();
     res = res.map((data) => ({ ...data, isExpanded: false }));
-    console.log("res", res);
+
     setData(res);
   };
 
@@ -76,7 +83,7 @@ const Men = () => {
       {data.map((data) => {
         return (
           <ThemeProvider theme={theme}>
-            <Card sx={{ maxWidth: 345 }}>
+            <Card sx={{ maxWidth: 345 }} className={classes.box1}>
               <CardHeader title={data.product} subheader={data.pname} />
 
               <CardMedia
@@ -94,9 +101,7 @@ const Men = () => {
                 <IconButton aria-label="add to favorites">
                   <FavoriteIcon />
                 </IconButton>
-                <IconButton aria-label="share">
-                  <ShareIcon />
-                </IconButton>
+
                 <ExpandMore
                   expand={data.isExpanded}
                   onClick={() => handleExpandClick(data.id)}
@@ -106,16 +111,34 @@ const Men = () => {
                   <ExpandMoreIcon />
                 </ExpandMore>
               </CardActions>
-              <Collapse in={data.isExpanded} timeout="auto" unmountOnExit>
+              <Collapse
+                style={{
+                  position: "absolute",
+                  backgroundColor: "white",
+                  width: "14.4em",
+                }}
+                in={data.isExpanded}
+                timeout="auto"
+                unmountOnExit
+              >
                 <CardContent>
                   <Typography paragraph>
-                    <b>Price: Rs.</b> {data.price}
+                    <b>Price:</b> Rs. {data.price}
                   </Typography>
 
                   <Typography paragraph>
                     <b>Rating 🌟</b> {data.rating}
                   </Typography>
-                  <FormControl sx={{ m: 1, minWidth: 100 }} size="small">
+                  <Typography paragraph>
+                    <b>Product Details:</b> {data.productdetails}
+                  </Typography>
+                  <Typography paragraph>
+                    <b>Size and fit:</b> {data.sizefit}
+                  </Typography>
+                  <Typography paragraph>
+                    <b>material and care:</b> {data.materialcare}
+                  </Typography>
+                  <FormControl sx={{ m: 1, minWidth: 80 }} size="small">
                     <InputLabel id="demo-simple-select-autowidth-label">
                       size
                     </InputLabel>
@@ -127,18 +150,19 @@ const Men = () => {
                       autoWidth
                       label="size"
                     >
+                      <MenuItem value=""></MenuItem>
                       <MenuItem value={10}>xs</MenuItem>
-                      <MenuItem value={11}>s</MenuItem>
-                      <MenuItem value={12}>m</MenuItem>
-                      <MenuItem value={13}>L</MenuItem>
-                      <MenuItem value={14}>xl</MenuItem>
+                      <MenuItem value={21}>s</MenuItem>
+                      <MenuItem value={22}>m</MenuItem>
+                      <MenuItem value={22}>L</MenuItem>
+                      <MenuItem value={22}>xl</MenuItem>
                     </Select>
                   </FormControl>
-
                   <Stack spacing={2} sx={{ m: 1 }}>
                     <Button
                       style={{ backgroundColor: "#EED1BB", color: "#000000" }}
                       startIcon={<AddShoppingCartIcon />}
+                      onClick={() => addProduct(data)}
                     >
                       add to cart
                     </Button>

@@ -42,22 +42,30 @@ import { Link } from "react-router-dom";
 const Home = () => {
   return (
     <div className={classes.app}>
-      <img className={classes.img} src={image} alt="Logo" />
+      <Link to="/women">
+        <img className={classes.img} src={image} alt="Logo" />
+      </Link>
       <h1 className={classes.h1}>DEAL OF THE DAY</h1>
+      <Link to="/beauty">
+        <img className={classes.img2} src={image24} alt="Logo" />
+        <img className={classes.img2} src={image25} alt="Logo" />
+      </Link>
+      <Link to="/men">
+        <img className={classes.img2} src={image26} alt="Logo" />
+        <img className={classes.img2} src={image29} alt="Logo" />
+      </Link>
+      <Link to="/women">
+        <img className={classes.img2} src={image28} alt="Logo" />
+        <img className={classes.img2} src={image27} alt="Logo" />
+        <img className={classes.img2} src={image30} alt="Logo" />
+      </Link>
 
-      <img className={classes.img2} src={image24} alt="Logo" />
-      <img className={classes.img2} src={image25} alt="Logo" />
-      <img className={classes.img2} src={image26} alt="Logo" />
-      <img className={classes.img2} src={image27} alt="Logo" />
-      <img className={classes.img2} src={image28} alt="Logo" />
-      <img className={classes.img2} src={image29} alt="Logo" />
-      <img className={classes.img2} src={image30} alt="Logo" />
       <h1 className={classes.h1}>TOP PICKS</h1>
       <Link to="/women">
         <img className={classes.img2} src={image17} alt="Logo" />
         <img className={classes.img2} src={image18} alt="Logo" />
         <img className={classes.img2} src={image19} alt="Logo" />
-        <img className={classes.img2} src={image20} alt="Logo" />{" "}
+        <img className={classes.img2} src={image20} alt="Logo" />
       </Link>
       <Link to="/men">
         <img className={classes.img2} src={image21} alt="Logo" />
@@ -99,10 +107,6 @@ const Home = () => {
         <img className={classes.img2} src={image35} alt="Logo" />
         <img className={classes.img2} src={image36} alt="Logo" />
       </Link>
-
-      {/* <h1 className={classes.h1}>BEST BUYS</h1>
-      <h1 className={classes.h1}>BEST OF KIDSWEAR</h1>
-      <h1 className={classes.h1}>LATEST IN BEAUTY and GROOMING</h1> */}
     </div>
   );
 };
